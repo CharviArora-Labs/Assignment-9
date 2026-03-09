@@ -31,32 +31,39 @@ Check versions:
 ```bash
 ruby -v
 rails -v
+```
 
 Install dependencies:
-
+```bash
 bundle install
-2. Run the Server
+```
+
+### 2. Run the Server
 
 Start the Rails server:
-
+```
 rails s
-
+```
 Server runs at:
-
+```
 http://localhost:3000
-API Endpoint
+```
+## API Endpoint:
 
 Example endpoint for testing error handling:
-
+```
 GET /api/v1/appointments/:id
+```
 
 Example request:
-
+```
 curl -i http://localhost:3000/api/v1/appointments/1
+```
+
 Error Response Format
 
 All API errors follow a consistent schema:
-
+```
 {
   "error": {
     "code": "string",
@@ -64,7 +71,10 @@ All API errors follow a consistent schema:
     "request_id": "uuid"
   }
 }
+```
+
 Example Error Response
+```
 {
   "error": {
     "code": "not_found",
@@ -72,25 +82,29 @@ Example Error Response
     "request_id": "c92b4a7a-5c3a-4a0b-9c4a-2e6e6c19f7d4"
   }
 }
-Request Observability
+```
+## Request Observability
 
 Each API response includes a request correlation ID.
 
 Header:
-
+```
 X-Request-ID
+```
 
 This ID appears in:
 
-API responses
+> API responses
 
-HTTP response headers
+> HTTP response headers
 
-Application logs
+> Application logs
 
 This allows developers to trace a single request across logs for debugging.
 
-Project Structure
+
+## Project Structure
+```
 app
  └ controllers
     └ api
@@ -105,44 +119,37 @@ docs
  └ assignment-09.md
 Key Implementation Features
 Centralized Error Handling
+```
 
 Implemented in:
-
+```
 app/controllers/api/base_controller.rb
-
+```
 Handles:
-
-ActiveRecord::RecordNotFound
-
-ActiveRecord::RecordInvalid
-
-StandardError
-
-Request Correlation
-
+```
+> ActiveRecord::RecordNotFound
+> ActiveRecord::RecordInvalid
+> StandardError
+> Request Correlation
+```
 Each request automatically includes:
-
+```
 request.request_id
+```
 
 This ID is:
 
-Returned in API responses
+> Returned in API responses
 
-Logged for debugging
+> Logged for debugging
 
-Documentation
+> Documentation
 
-Assignment details and logs are documented in:
-
+### Assignment details and logs are documented in:
+```
 docs/assignment-09.md
-Assignment Requirements Completed
+```
 
-Request ID included in responses
+> Logs traceable via request ID
 
-Centralized exception handling
-
-Stable error response schema
-
-Logs traceable via request ID
-
-Internal stack traces hidden from clients
+> Internal stack traces hidden from clients
