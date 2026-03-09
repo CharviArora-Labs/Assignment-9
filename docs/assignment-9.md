@@ -42,6 +42,7 @@ All API errors follow a consistent JSON structure.
     "request_id": "uuid"
   }
 }
+
 Example Error Response
 HTTP/1.1 404 Not Found
 X-Request-ID: c92b4a7a-5c3a-4a0b-9c4a-2e6e6c19f7d4
@@ -55,41 +56,43 @@ Response body:
     "request_id": "c92b4a7a-5c3a-4a0b-9c4a-2e6e6c19f7d4"
   }
 }
+
 Example Logs
 
 Log entry from development.log:
 
 [c92b4a7a-5c3a-4a0b-9c4a-2e6e6c19f7d4] ActiveRecord::RecordNotFound: Couldn't find Appointment with 'id'=1
 
+```
 The request ID links:
 
-API response
+> API response
 
-HTTP response header
+> HTTP response header
 
-Application logs
+> Application logs
 
 This allows developers to trace a single request across the system for debugging.
 
-Error Handling Strategy
+## Error Handling Strategy
 
 Exception handling is centralized in:
-
+```
 Api::BaseController
 Handled Exceptions
 Exception	Response
 ActiveRecord::RecordNotFound	404 Not Found
 ActiveRecord::RecordInvalid	422 Unprocessable Entity
 StandardError	500 Internal Server Error
-
+```
 Internal errors are logged but not exposed to API clients.
 
-Security Considerations
+### Security Considerations
 
-To prevent leaking sensitive information:
+> To prevent leaking sensitive information:
 
-Stack traces are not returned to clients
+> Stack traces are not returned to clients
 
-Raw exception messages are hidden for internal errors
+> Raw exception messages are hidden for internal errors
 
-Generic error messages are returned instead
+> Generic error messages are returned instead
