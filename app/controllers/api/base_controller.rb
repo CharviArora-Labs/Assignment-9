@@ -1,5 +1,4 @@
 class Api::BaseController < ActionController::API
-
   before_action :attach_request_id
 
   rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
@@ -20,7 +19,6 @@ class Api::BaseController < ActionController::API
   end
 
   def handle_internal_error(exception)
-
     Rails.logger.error(
       "[#{request.request_id}] #{exception.class} #{exception.message}"
     )
@@ -41,5 +39,4 @@ class Api::BaseController < ActionController::API
       }
     }, status: status
   end
-
 end
